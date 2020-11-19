@@ -1,18 +1,27 @@
 pipeline {
-    agent any
-    stages {
-        stage('Example with the sample') {
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-                submitter "alice,bob"
-                parameters {
-                    string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
-                }
-            }
-            steps {
-                echo "Hello, ${PERSON}, nice to meet you."
-            }
-        }
-    }
+   agent { label 'ubuntu' }
+   stages{
+       stage('git clone'){
+           steps{
+               git 'https://github.com/devops-surya/game-of-life.git'  
+           }        
+       }
+       stage('build the code'){
+           steps{
+              sh 'mvn package'
+           }
+       }
+       stage('archive the artifacts'){
+           steps{
+              archiveArtifacts artifacts: 'gameoflife-web/target/*.war', followSymlinks: false
+           }          
+       }
+       stage('publish the junit reports'){
+           steps{
+              junit 'gameoflife-web/target/surefire-reports/*.xml'
+           }
+           
+       }
+
+   }
 }
