@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Example') {
+        stage('Example with the sample') {
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
