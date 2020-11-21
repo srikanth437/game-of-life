@@ -1,11 +1,5 @@
 pipeline {
    agent any
-   triggers{
-     upstream(upstreamProjects: 'pipeline-1', threshold: hudson.model.Result.SUCCESS)
-   }
-   parameters{
-     string(name: 'BUILD_BRANCH', defaultValue: 'master', description: 'parameterized the branch' )
-   }
    stages{
        stage('git clone'){
            steps{
