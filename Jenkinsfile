@@ -13,7 +13,7 @@ pipeline {
        stage('build the code'){
            steps{
               sh 'mvn package'
-              input ( next step ?)
+                              input ' next step ?'
            }
        }
        stage('archive the artifacts'){
