@@ -1,19 +1,17 @@
 pipeline {
    agent any
    parameters{
-       string(name: 'BUILD_BRANCH', defaultValue: 'master' )
+     string(name: 'BUILD_BRANCH', defaultValue: 'master', description: 'parameterized the branch' )
    }
-        
    stages{
        stage('git clone'){
            steps{
-              git url: 'https://github.com/devops-surya/game-of-life.git' , branch: "$BUILD_BRANCH"
+               git branch: "$BUILD_BRANCH", url: 'https://github.com/devops-surya/game-of-life.git'
            }        
        }
        stage('build the code'){
            steps{
               sh 'mvn package'
-                              input ' next step ?'
            }
        }
        stage('archive the artifacts'){
@@ -25,6 +23,7 @@ pipeline {
            steps{
               junit 'gameoflife-web/target/surefire-reports/*.xml'
            }
+	   }
            
        }
 
