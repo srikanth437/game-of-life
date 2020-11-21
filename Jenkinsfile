@@ -7,7 +7,7 @@ pipeline {
    stages{
        stage('git clone'){
            steps{
-               git branch: '$BUILD_BRANCH', git url: 'https://github.com/devops-surya/game-of-life.git'
+              branch: '$BUILD_BRANCH', git url: 'https://github.com/devops-surya/game-of-life.git'
            }        
        }
        stage('build the code'){
