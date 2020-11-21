@@ -1,9 +1,15 @@
 pipeline {
    agent any
+   triggers{
+     upstream(upstreamProjects: 'pipeline-1', threshold: hudson.model.Result.SUCCESS)
+   }
+   parameters{
+     string(name: 'BUILD_BRANCH', defaultValue: 'master', description: 'parameterized the branch' )
+   }
    stages{
        stage('git clone'){
            steps{
-               git branch: 'master', url: 'https://github.com/devops-surya/game-of-life.git'
+               git branch: "$BUILD_BRANCH", url: 'https://github.com/devops-surya/game-of-life.git'
            }        
        }
        stage('build the code'){
@@ -20,7 +26,8 @@ pipeline {
            steps{
               junit 'gameoflife-web/target/surefire-reports/*.xml'
            }
-	   }
-    }
+           
+       }
 
    }
+}
