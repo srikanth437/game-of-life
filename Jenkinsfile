@@ -24,8 +24,6 @@ pipeline {
               junit 'gameoflife-web/target/surefire-reports/*.xml'
            }
 	   }
-           
-       }
+    }
 
    }
-}
