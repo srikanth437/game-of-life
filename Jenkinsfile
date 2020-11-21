@@ -1,5 +1,5 @@
 pipeline {
-   agent any
+   agent { label 'ubuntu' }
    parameters{
        string(name: 'BUILD_BRANCH', defaultValue: 'master' )
    }
@@ -7,7 +7,7 @@ pipeline {
    stages{
        stage('git clone'){
            steps{
-               git url: 'https://github.com/devops-surya/game-of-life.git'  , git branch: '$BUILD_BRANCH'
+               git branch: '$BUILD_BRANCH', git url: 'https://github.com/devops-surya/game-of-life.git'
            }        
        }
        stage('build the code'){
